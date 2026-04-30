@@ -114,7 +114,12 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
     const ctx = canvas?.getContext("2d");
 
     if (canvas && ctx && isVisibleRef.current) {
-      const progress = scrollYProgress.get();
+      let progress = scrollYProgress.get();
+      // Framer Motion can return NaN if the container isn't fully laid out yet. Protect against NaN poisoning.
+      if (typeof progress !== "number" || isNaN(progress)) {
+        progress = 0;
+      }
+      
       // Target as a float index
       const rawTarget = progress * (totalFrames - 1);
       targetFrameRef.current = rawTarget;

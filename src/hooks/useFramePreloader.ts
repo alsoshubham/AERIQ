@@ -29,6 +29,8 @@ export function useFramePreloader(sequences: FrameSequence[], batchSize = 40) {
       }
     }
 
+    let isCancelled = false;
+
     // Allocate array and assign to ref FIRST so the canvas
     // always reads from the same shared reference.
     const imgs: HTMLImageElement[] = new Array(allPaths.length);
@@ -38,6 +40,8 @@ export function useFramePreloader(sequences: FrameSequence[], batchSize = 40) {
     let cursor = 0;
 
     function loadBatch() {
+      if (isCancelled) return;
+      
       const end = Math.min(cursor + batchSize, allPaths.length);
       for (let i = cursor; i < end; i++) {
         const img = new Image();
@@ -46,16 +50,18 @@ export function useFramePreloader(sequences: FrameSequence[], batchSize = 40) {
         img.src = allPaths[i];
         imgs[i] = img; // store immediately so canvas can access as soon as .complete
         img.onload = () => {
+          if (isCancelled) return;
           loadedCount++;
           setLoaded(loadedCount);
         };
         img.onerror = () => {
+          if (isCancelled) return;
           loadedCount++;
           setLoaded(loadedCount);
         };
       }
       cursor = end;
-      if (cursor < allPaths.length) {
+      if (cursor < allPaths.length && !isCancelled) {
         if (typeof requestIdleCallback !== "undefined") {
           requestIdleCallback(loadBatch, { timeout: 200 });
         } else {
@@ -68,6 +74,7 @@ export function useFramePreloader(sequences: FrameSequence[], batchSize = 40) {
 
     // Cleanup: abort pending loads on unmount
     return () => {
+      isCancelled = true;
       for (const img of imgs) {
         if (img) img.src = "";
       }

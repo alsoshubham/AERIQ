@@ -16,6 +16,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Prevent elastic over-scroll bounce from disrupting the scroll engine */
+    overscroll-behavior: none;
   }
 
   body {
@@ -24,6 +26,15 @@
     font-family: var(--font-inter), sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* GPU-composited scroll layer */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+  }
+
+  /* Promote canvas and sticky elements to their own GPU layer */
+  canvas {
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   /* Smooth scrollbar for webkit */

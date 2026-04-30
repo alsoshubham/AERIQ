@@ -8,38 +8,56 @@ interface FrameSequence {
 }
 
 /**
- * Preloads image frames in batches using requestIdleCallback
- * to avoid blocking the main thread during initial page load.
+ * Preloads image frames aggressively (first batch sync, rest via rIC)
+ * so the canvas always has a valid ref to the shared array.
  */
-export function useFramePreloader(sequences: FrameSequence[], batchSize = 30) {
+export function useFramePreloader(sequences: FrameSequence[], batchSize = 40) {
   const [loaded, setLoaded] = useState(0);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const total = sequences.reduce((acc, s) => acc + s.count, 0);
 
   useEffect(() => {
+    // Reset on re-mount / hot-reload
+    setLoaded(0);
+
     const allPaths: string[] = [];
     for (const seq of sequences) {
       for (let i = 1; i <= seq.count; i++) {
-        allPaths.push(`${seq.path}/ezgif-frame-${i.toString().padStart(3, "0")}.jpg`);
+        allPaths.push(
+          `${seq.path}/ezgif-frame-${i.toString().padStart(3, "0")}.jpg`
+        );
       }
     }
 
+    // Allocate array and assign to ref FIRST so the canvas
+    // always reads from the same shared reference.
     const imgs: HTMLImageElement[] = new Array(allPaths.length);
+    imagesRef.current = imgs;
+
+    let loadedCount = 0;
     let cursor = 0;
 
     function loadBatch() {
       const end = Math.min(cursor + batchSize, allPaths.length);
       for (let i = cursor; i < end; i++) {
         const img = new Image();
+        // Aggressive decode hint for GPU-accelerated drawing
+        img.decoding = "async";
         img.src = allPaths[i];
-        img.onload = () => setLoaded((p) => p + 1);
-        img.onerror = () => setLoaded((p) => p + 1);
-        imgs[i] = img;
+        imgs[i] = img; // store immediately so canvas can access as soon as .complete
+        img.onload = () => {
+          loadedCount++;
+          setLoaded(loadedCount);
+        };
+        img.onerror = () => {
+          loadedCount++;
+          setLoaded(loadedCount);
+        };
       }
       cursor = end;
       if (cursor < allPaths.length) {
         if (typeof requestIdleCallback !== "undefined") {
-          requestIdleCallback(loadBatch);
+          requestIdleCallback(loadBatch, { timeout: 200 });
         } else {
           setTimeout(loadBatch, 0);
         }
@@ -47,8 +65,15 @@ export function useFramePreloader(sequences: FrameSequence[], batchSize = 30) {
     }
 
     loadBatch();
-    imagesRef.current = imgs;
-  }, [sequences, batchSize]);
+
+    // Cleanup: abort pending loads on unmount
+    return () => {
+      for (const img of imgs) {
+        if (img) img.src = "";
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);          // intentionally stable — sequences is memoised in consumer
 
   return { images: imagesRef, loaded, total };
 }

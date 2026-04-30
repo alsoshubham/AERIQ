@@ -16,13 +16,16 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
   containerRef,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Floating-point frame position for sub-frame interpolation
   const currentFrameRef = useRef(-1);
+  const targetFrameRef = useRef(0);
   const rafRef = useRef<number>(0);
   const isVisibleRef = useRef(true);
+  const lastDrawnRef = useRef(-1);
 
   const totalFrames = frameCount + frameCount2;
 
-  // Memoize sequences array to prevent re-renders
   const sequences = useMemo(
     () => [
       { path: "/frames", count: frameCount },
@@ -31,10 +34,8 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
     [frameCount, frameCount2]
   );
 
-  // Batch-load frames using idle callbacks
   const { images, loaded, total } = useFramePreloader(sequences);
 
-  // Track scroll progress within the container only
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -70,6 +71,8 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = "high";
       }
+      // Force redraw after resize
+      lastDrawnRef.current = -1;
     };
 
     window.addEventListener("resize", handleResize);
@@ -77,74 +80,105 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Render loop — skips when off-screen
-  const renderFrame = useCallback(() => {
-    if (!isVisibleRef.current) {
-      rafRef.current = requestAnimationFrame(renderFrame);
-      return;
-    }
+  /** Draw a single image frame, cover-fitting to the canvas */
+  const drawImage = useCallback((ctx: CanvasRenderingContext2D, img: HTMLImageElement) => {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    ctx.clearRect(0, 0, vw, vh);
 
+    const imgRatio = img.naturalWidth / img.naturalHeight;
+    const canvasRatio = vw / vh;
+    let drawW: number, drawH: number, drawX: number, drawY: number;
+
+    if (canvasRatio > imgRatio) {
+      drawW = vw;
+      drawH = vw / imgRatio;
+      drawX = 0;
+      drawY = (vh - drawH) / 2;
+    } else {
+      drawH = vh;
+      drawW = vh * imgRatio;
+      drawX = (vw - drawW) / 2;
+      drawY = 0;
+    }
+    ctx.drawImage(img, drawX, drawY, drawW, drawH);
+  }, []);
+
+  /**
+   * Main render loop.
+   * Uses lerp to smoothly ease toward the target frame,
+   * only repaints when the displayed frame actually changes.
+   */
+  const renderFrame = useCallback(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) {
-      rafRef.current = requestAnimationFrame(renderFrame);
-      return;
-    }
 
-    const progress = scrollYProgress.get();
-    const frameIdx = Math.min(
-      Math.max(Math.floor(progress * (totalFrames - 1)), 0),
-      totalFrames - 1
-    );
+    if (canvas && ctx && isVisibleRef.current) {
+      const progress = scrollYProgress.get();
+      // Target as a float index
+      const rawTarget = progress * (totalFrames - 1);
+      targetFrameRef.current = rawTarget;
 
-    if (frameIdx !== currentFrameRef.current) {
-      currentFrameRef.current = frameIdx;
-      const img = images.current[frameIdx];
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      ctx.clearRect(0, 0, vw, vh);
+      // Lerp toward the target — tune factor for feel (0.12 = smooth, 0.25 = snappy)
+      const lerpFactor = 0.18;
+      const prev = currentFrameRef.current < 0 ? rawTarget : currentFrameRef.current;
+      const next = prev + (rawTarget - prev) * lerpFactor;
+      currentFrameRef.current = next;
 
-      if (img?.complete && img.naturalWidth > 0) {
-        const imgRatio = img.naturalWidth / img.naturalHeight;
-        const canvasRatio = vw / vh;
-        let drawW: number, drawH: number, drawX: number, drawY: number;
+      const frameIdx = Math.min(
+        Math.max(Math.round(next), 0),
+        totalFrames - 1
+      );
 
-        if (canvasRatio > imgRatio) {
-          drawW = vw;
-          drawH = vw / imgRatio;
-          drawX = 0;
-          drawY = (vh - drawH) / 2;
-        } else {
-          drawH = vh;
-          drawW = vh * imgRatio;
-          drawX = (vw - drawW) / 2;
-          drawY = 0;
+      if (frameIdx !== lastDrawnRef.current) {
+        const img = images.current[frameIdx];
+        if (img?.complete && img.naturalWidth > 0) {
+          drawImage(ctx, img);
+          lastDrawnRef.current = frameIdx;
+        } else if (lastDrawnRef.current === -1) {
+          // Find the nearest loaded frame to show on first paint
+          for (let offset = 0; offset < totalFrames; offset++) {
+            const candidate = images.current[Math.min(frameIdx + offset, totalFrames - 1)];
+            if (candidate?.complete && candidate.naturalWidth > 0) {
+              drawImage(ctx, candidate);
+              lastDrawnRef.current = frameIdx + offset;
+              break;
+            }
+          }
         }
-        ctx.drawImage(img, drawX, drawY, drawW, drawH);
       }
     }
 
     rafRef.current = requestAnimationFrame(renderFrame);
-  }, [totalFrames, scrollYProgress, images]);
+  }, [totalFrames, scrollYProgress, images, drawImage]);
 
   useEffect(() => {
     rafRef.current = requestAnimationFrame(renderFrame);
     return () => cancelAnimationFrame(rafRef.current);
   }, [renderFrame]);
 
+  const pct = total > 0 ? Math.round((loaded / total) * 100) : 0;
+
   return (
     <>
       {loaded < total && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-[#050505]">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
+          <div className="flex flex-col items-center gap-6">
+            {/* Aeriq wordmark during load */}
+            <p className="text-white/90 text-3xl font-bold tracking-tight" style={{ fontFamily: "inherit" }}>
+              Aeriq
+            </p>
+            <div className="w-56 h-[2px] bg-white/10 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-[#00FF88] to-[#00D6FF] rounded-full transition-all duration-300"
-                style={{ width: `${(loaded / total) * 100}%` }}
+                className="h-full bg-gradient-to-r from-[#00FF88] to-[#00D6FF] rounded-full"
+                style={{
+                  width: `${pct}%`,
+                  transition: "width 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
+                }}
               />
             </div>
-            <p className="text-white/40 text-sm font-medium tracking-wide">
-              Loading experience... {Math.round((loaded / total) * 100)}%
+            <p className="text-white/35 text-xs font-medium tracking-[0.2em] uppercase">
+              Loading experience — {pct}%
             </p>
           </div>
         </div>
@@ -152,6 +186,7 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
       <canvas
         ref={canvasRef}
         className="fixed inset-0 w-full h-screen z-0 pointer-events-none"
+        style={{ willChange: "transform" }}
       />
     </>
   );

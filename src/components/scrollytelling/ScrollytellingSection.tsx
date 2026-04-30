@@ -24,9 +24,9 @@ export const ScrollytellingSection: React.FC<ScrollytellingSectionProps> = ({
     offset: ["start end", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [80, 0, 0, -80]);
-  const scale = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.95, 1, 1, 0.95]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [60, 0, 0, -60]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.97, 1, 1, 0.97]);
 
   const alignClasses =
     align === "center"
@@ -42,7 +42,7 @@ export const ScrollytellingSection: React.FC<ScrollytellingSectionProps> = ({
     >
       <div className="sticky top-0 h-screen flex items-center px-8 md:px-24">
         <motion.div
-          style={{ opacity, y, scale }}
+          style={{ opacity, y, scale, willChange: "opacity, transform" }}
           className={`max-w-4xl w-full flex flex-col gap-5 ${alignClasses}`}
         >
           {/* Accent line */}

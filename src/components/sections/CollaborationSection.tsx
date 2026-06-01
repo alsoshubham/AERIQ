@@ -11,21 +11,21 @@ export function CollaborationSection() {
     {
       title: "Pilot Program",
       duration: "3–6 months",
-      desc: "Test Aeriq in your facility with a fully managed trial. We handle setup, monitoring, and optimization.",
+      desc: "Test Phycosphere in your facility with a fully managed trial. We handle setup, monitoring, and optimization.",
       accent: "#00FF88",
       icon: <Zap className="w-5 h-5" />,
     },
     {
       title: "ESG Investment",
       duration: "Carbon Credits",
-      desc: "Invest in verifiable environmental impact. Each Aeriq unit generates measurable carbon offset data.",
+      desc: "Invest in verifiable environmental impact. Each Phycosphere unit generates measurable carbon offset data.",
       accent: "#00D6FF",
       icon: <BarChart3 className="w-5 h-5" />,
     },
     {
       title: "CSR Partnerships",
       duration: "Long-term",
-      desc: "Align your brand with sustainability. Deploy Aeriq units as part of your corporate social responsibility initiatives.",
+      desc: "Align your brand with sustainability. Deploy Phycosphere units as part of your corporate social responsibility initiatives.",
       accent: "#8B5CF6",
       icon: <Users className="w-5 h-5" />,
     },
@@ -39,7 +39,7 @@ export function CollaborationSection() {
             Collaborate
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
-            Partner With Aeriq
+            Partner With Phycosphere
           </h2>
           <p className="text-white/40 text-lg max-w-xl">
             Multiple pathways to bring clean air technology to your organization.

@@ -169,9 +169,9 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
       {loaded < total && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-[#050505]">
           <div className="flex flex-col items-center gap-6">
-            {/* Aeriq wordmark during load */}
+            {/* Phycosphere wordmark during load */}
             <p className="text-white/90 text-3xl font-bold tracking-tight" style={{ fontFamily: "inherit" }}>
-              Aeriq
+              Phycosphere
             </p>
             <div className="w-56 h-[2px] bg-white/10 rounded-full overflow-hidden">
               <div

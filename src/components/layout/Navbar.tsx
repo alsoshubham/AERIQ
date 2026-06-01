@@ -29,7 +29,7 @@ export const Navbar = () => {
       {/* Content */}
       <div className="relative z-10 flex items-center justify-between w-full max-w-6xl mx-auto">
         <a href="#" className="text-xl font-bold tracking-tighter text-white">
-          AERIQ
+          PHYCOSPHERE
         </a>
 
         <div className="hidden md:flex items-center gap-8 text-[13px] font-medium text-white/40">

@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Aeriq — The Living Machine",
+  title: "Phycosphere — The Living Machine",
   description: "Microalgae-based sustainable systems for air purification, water treatment, and bio-fertilizer production. Where biology meets engineering.",
 };
 

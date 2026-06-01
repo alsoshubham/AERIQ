@@ -20,7 +20,7 @@ export default function ScrollytellingContainer() {
         <div className="relative z-10">
           <ScrollytellingSection
             align="center"
-            headline="Aeriq"
+            headline="Phycosphere"
             subheadline="Redefining the future of living."
             supportingLine="engineering modular biological infrastructure that transforms urban CO2 and wastewater into clean air, reusable biomass, and measurable climate impact at the speed cities need"
           />
@@ -39,14 +39,14 @@ export default function ScrollytellingContainer() {
           <ScrollytellingSection
             align="center"
             headline="Circular by design."
-            subheadline="From air purification to biofertilizers, Aeriq transforms waste into value."
+            subheadline="From air purification to biofertilizers, Phycosphere transforms waste into value."
             supportingLine="Each system contributes to a regenerative economy."
           />
           <ScrollytellingSection
             align="center"
             headline="Engineering the future of nature."
-            subheadline="Aeriq — where sustainability becomes technology."
-            cta="Explore Aeriq"
+            subheadline="Phycosphere — where sustainability becomes technology."
+            cta="Explore Phycosphere"
           />
         </div>
       </div>

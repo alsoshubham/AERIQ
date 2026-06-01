@@ -45,7 +45,7 @@ export function DesignedInIndiaSection() {
       <div className="max-w-6xl mx-auto">
         <motion.div variants={fadeUp} className="mb-16">
           <p className="text-[#00FF88] text-sm font-medium tracking-[0.2em] uppercase mb-4">
-            Why Aeriq
+            Why Phycosphere
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
             Designed in India.<br />Made for India.

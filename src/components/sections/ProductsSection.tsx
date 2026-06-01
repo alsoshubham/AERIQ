@@ -89,7 +89,7 @@ export function ProductsSection() {
             Solutions for every<br />scale of industry.
           </h2>
           <p className="text-white/40 text-lg max-w-xl">
-            From regenerative agriculture to high-performance bioplastics, Aeriq's microalgae cultivation systems provide the biological precision required for the next industrial revolution.
+            From regenerative agriculture to high-performance bioplastics, Phycosphere's microalgae cultivation systems provide the biological precision required for the next industrial revolution.
           </p>
         </motion.div>
 

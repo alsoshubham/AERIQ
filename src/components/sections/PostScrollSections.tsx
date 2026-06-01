@@ -10,7 +10,7 @@ import { Footer } from "@/components/layout/Footer";
 
 /**
  * Section order (post-scrollytelling):
- * 1. DesignedInIndia  — Why Aeriq / benefits overview
+ * 1. DesignedInIndia  — Why Phycosphere / benefits overview
  * 2. Technical        — Engineering details
  * 3. Products         — Our product range
  * 4. Applications     — Where it's deployed

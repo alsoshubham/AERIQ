@@ -14,7 +14,7 @@ export function ApplicationsSection() {
     {
       icon: <Building2 className="w-5 h-5" />,
       title: "Smart Cities & Urban Infrastructure",
-      desc: "Deploy Aeriq across smart-city plazas, walkways and redevelopment corridors.",
+      desc: "Deploy Phycosphere across smart-city plazas, walkways and redevelopment corridors.",
       image: "https://images.unsplash.com/photo-1715870251864-64fd4a6ae4ad?w=600&auto=format&fit=crop&q=60",
     },
     {

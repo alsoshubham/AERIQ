@@ -24,10 +24,6 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // Silence ESLint errors during builds (TypeScript is the source of truth)
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };
 
 export default nextConfig;

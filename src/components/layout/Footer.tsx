@@ -50,7 +50,7 @@ export function Footer() {
 
         <div className="border-t border-white/[0.05] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/20 text-xs">
-            © {new Date().getFullYear()} Phycosphere — Matiyari Technology Pvt. Ltd. All rights reserved.
+            © {new Date().getFullYear()} Phycosphere Pvt. Ltd. All rights reserved.
           </p>
           <div className="flex gap-6 text-white/20 text-xs">
             <span className="hover:text-white/40 transition-colors cursor-pointer">Privacy Policy</span>

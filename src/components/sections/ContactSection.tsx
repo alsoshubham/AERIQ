@@ -22,16 +22,67 @@ export function ContactSection() {
           </p>
         </motion.div>
 
-        <motion.form variants={fadeUp} className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+        {/*
+          FormSubmit.co integration:
+          - action → FormSubmit endpoint (hello.phycosphere@gmail.com)
+          - method POST
+          - _next → redirect to /thank-you after submission
+          - _template → table layout in email
+          - _subject → custom email subject line
+          - _captcha → disabled (add honeypot instead via _honey)
+          - _honey → invisible honeypot field to catch bots (left blank by real users)
+        */}
+        <motion.form
+          variants={fadeUp}
+          className="space-y-4"
+          action="https://formsubmit.co/hello.phycosphere@gmail.com"
+          method="POST"
+        >
+          {/* FormSubmit hidden configuration */}
+          <input type="hidden" name="_next" value="https://phycosphere.in/thank-you" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_subject" value="New Enquiry — Phycosphere" />
+          <input type="hidden" name="_captcha" value="false" />
+          {/* Honeypot: bots fill this, humans don't — silently filters spam */}
+          <input type="text" name="_honey" className="hidden" aria-hidden="true" tabIndex={-1} />
+
           <div className="grid md:grid-cols-2 gap-4">
-            <input type="text" placeholder="Full Name" className={inputClasses} />
-            <input type="email" placeholder="Email Address" className={inputClasses} />
+            <input
+              type="text"
+              name="full_name"
+              placeholder="Full Name"
+              className={inputClasses}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              className={inputClasses}
+              required
+            />
           </div>
           <div className="grid md:grid-cols-2 gap-4">
-            <input type="text" placeholder="Organization" className={inputClasses} />
-            <input type="tel" placeholder="Phone Number" className={inputClasses} />
+            <input
+              type="text"
+              name="organization"
+              placeholder="Organization"
+              className={inputClasses}
+            />
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone Number"
+              className={inputClasses}
+            />
           </div>
-          <textarea rows={5} placeholder="Your Message" className={`${inputClasses} resize-none`} />
+          <textarea
+            rows={5}
+            name="message"
+            placeholder="Your Message"
+            className={`${inputClasses} resize-none`}
+            required
+          />
           <div className="pt-2">
             <motion.button
               whileHover={{ scale: 1.02 }}
@@ -41,7 +92,9 @@ export function ContactSection() {
             >
               Send Message
             </motion.button>
-            <p className="text-white/20 text-xs mt-4">We respect your privacy. Your information will be kept confidential.</p>
+            <p className="text-white/20 text-xs mt-4">
+              We respect your privacy. Your information will be kept confidential.
+            </p>
           </div>
         </motion.form>
       </div>

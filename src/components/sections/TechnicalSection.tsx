@@ -45,7 +45,7 @@ export function TechnicalSection() {
             Built different.<br />Built to last.
           </h2>
           <p className="text-white/40 text-lg max-w-xl">
-            Every component is purpose-designed for maximum air purification performance.
+            Every component is purpose-designed for maximum performance.
           </p>
         </motion.div>
 

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef, useEffect, useCallback, useMemo } from "react";
-import { useScroll } from "framer-motion";
+import React, { useRef, useEffect, useCallback, useMemo, useState } from "react";
+import { useScroll, motion, AnimatePresence } from "framer-motion";
 import { useFramePreloader } from "@/hooks/useFramePreloader";
 
 interface ImageSequenceCanvasProps {
@@ -162,32 +162,130 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
     return () => cancelAnimationFrame(rafRef.current);
   }, [renderFrame]);
 
+  const [showLoader, setShowLoader] = useState(true);
+  const isFullyLoaded = loaded >= total && total > 0;
+
+  // Delay hiding loader slightly so the exit animation plays
+  useEffect(() => {
+    if (isFullyLoaded) {
+      const t = setTimeout(() => setShowLoader(false), 900);
+      return () => clearTimeout(t);
+    }
+  }, [isFullyLoaded]);
+
   const pct = total > 0 ? Math.round((loaded / total) * 100) : 0;
 
   return (
     <>
-      {loaded < total && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-[#050505]">
-          <div className="flex flex-col items-center gap-6">
-            {/* Phycosphere wordmark during load */}
-            <p className="text-white/90 text-3xl font-bold tracking-tight" style={{ fontFamily: "inherit" }}>
-              Phycosphere
-            </p>
-            <div className="w-56 h-[2px] bg-white/10 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-[#00FF88] to-[#00D6FF] rounded-full"
+      <AnimatePresence>
+        {showLoader && (
+          <motion.div
+            key="loader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7, ease: "easeInOut" }}
+            className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
+            style={{ background: "#050505" }}
+          >
+            {/* Ambient radial glow */}
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(ellipse 60% 40% at 50% 55%, rgba(0,255,136,0.06) 0%, transparent 70%)",
+              }}
+            />
+
+            {/* Floating particle dots */}
+            {[...Array(6)].map((_, i) => (
+              <motion.div
+                key={i}
+                aria-hidden
+                className="absolute rounded-full"
                 style={{
-                  width: `${pct}%`,
-                  transition: "width 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
+                  width: i % 2 === 0 ? 3 : 2,
+                  height: i % 2 === 0 ? 3 : 2,
+                  left: `${15 + i * 14}%`,
+                  top: `${30 + (i % 3) * 15}%`,
+                  background: i % 3 === 0 ? "#00FF88" : i % 3 === 1 ? "#00D6FF" : "#ffffff40",
+                }}
+                animate={{ y: [0, -12, 0], opacity: [0.2, 0.7, 0.2] }}
+                transition={{
+                  duration: 2.4 + i * 0.4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.3,
                 }}
               />
+            ))}
+
+            <div className="relative flex flex-col items-center gap-8">
+              {/* Glowing logo */}
+              <motion.div
+                className="flex flex-col items-center gap-1"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                {/* Accent line above logo */}
+                <motion.div
+                  className="h-[1px] bg-gradient-to-r from-transparent via-[#00FF88] to-transparent mb-3"
+                  initial={{ width: 0, opacity: 0 }}
+                  animate={{ width: 56, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                />
+                <p
+                  className="text-white text-3xl font-bold tracking-[0.18em] uppercase"
+                  style={{ fontFamily: "inherit", letterSpacing: "0.18em" }}
+                >
+                  Phycosphere
+                </p>
+                <motion.p
+                  className="text-white/30 text-[10px] font-medium tracking-[0.35em] uppercase mt-1"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
+                  The Living Machine
+                </motion.p>
+              </motion.div>
+
+              {/* Progress bar */}
+              <motion.div
+                className="flex flex-col items-center gap-3"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <div className="w-64 h-[2px] bg-white/8 rounded-full overflow-hidden relative">
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{
+                      background: "linear-gradient(90deg, #00FF88, #00D6FF)",
+                      width: `${pct}%`,
+                      transition: "width 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    }}
+                  />
+                  {/* Shimmer sweep */}
+                  <motion.div
+                    className="absolute inset-y-0 w-16 pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent)",
+                    }}
+                    animate={{ left: ["-16%", "110%"] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: "linear", repeatDelay: 0.4 }}
+                  />
+                </div>
+                <p className="text-white/25 text-[10px] font-medium tracking-[0.28em] uppercase">
+                  {isFullyLoaded ? "Ready" : `Loading — ${pct}%`}
+                </p>
+              </motion.div>
             </div>
-            <p className="text-white/35 text-xs font-medium tracking-[0.2em] uppercase">
-              Loading experience — {pct}%
-            </p>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
       <canvas
         ref={canvasRef}
         className="fixed inset-0 w-full h-screen z-0 pointer-events-none"

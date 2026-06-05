@@ -39,7 +39,7 @@ export default function ScrollytellingContainer() {
           <ScrollytellingSection
             align="center"
             headline="Circular by design."
-            subheadline="From air purification to biofertilizers, Phycosphere transforms waste into value."
+            subheadline="From water treatment to biofertilizers, Phycosphere transforms waste into value."
             supportingLine="Each system contributes to a regenerative economy."
           />
           <ScrollytellingSection

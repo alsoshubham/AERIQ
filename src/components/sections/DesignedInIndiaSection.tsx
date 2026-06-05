@@ -50,9 +50,6 @@ export function DesignedInIndiaSection() {
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
             Designed in India.<br />Made for India.
           </h2>
-          <p className="text-white/40 text-lg max-w-xl">
-            The power of <span className="text-white font-medium">25 trees</span>, packed into <span className="text-white font-medium">1 unit</span>.
-          </p>
         </motion.div>
 
         <motion.div variants={fadeUp} className="grid md:grid-cols-3 gap-px bg-white/[0.06] rounded-2xl overflow-hidden border border-white/[0.06]">

@@ -9,13 +9,6 @@ export function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-1">
-            {/* AERIQ logo — light variant for dark footer background */}
-            <img
-              src="/aeriq-logo-light.png"
-              alt="AERIQ by Phycosphere"
-              className="h-10 w-auto mb-4 opacity-70"
-              draggable={false}
-            />
             <span className="text-xl font-bold text-white tracking-tighter">PHYCOSPHERE</span>
             <p className="text-white/25 text-sm mt-4 leading-relaxed">
               Bioengineered microalgae systems for urban air purification. Each unit replicates 15–25 trees in a 1 m² footprint.

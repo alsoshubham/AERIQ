@@ -141,11 +141,21 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
           drawImage(ctx, img);
           lastDrawnRef.current = frameIdx;
         } else if (lastDrawnRef.current === -1) {
-          // Find the nearest loaded frame to show on first paint
-          for (let offset = 0; offset < totalFrames; offset++) {
-            const candidate = images.current[Math.min(frameIdx + offset, totalFrames - 1)];
-            if (candidate?.complete && candidate.naturalWidth > 0) {
-              drawImage(ctx, candidate);
+          // First paint only: the exact frame isn't decoded yet, so show the
+          // nearest decoded frame in EITHER direction. Frames load 0→N, so when
+          // the page is reloaded deep in the sequence the closest ready frame is
+          // usually *behind* the target — a forward-only scan would find nothing
+          // and leave the canvas blank until the whole sequence loads.
+          for (let offset = 1; offset < totalFrames; offset++) {
+            const back = images.current[frameIdx - offset];
+            if (back?.complete && back.naturalWidth > 0) {
+              drawImage(ctx, back);
+              lastDrawnRef.current = frameIdx - offset;
+              break;
+            }
+            const fwd = images.current[frameIdx + offset];
+            if (fwd?.complete && fwd.naturalWidth > 0) {
+              drawImage(ctx, fwd);
               lastDrawnRef.current = frameIdx + offset;
               break;
             }
@@ -163,17 +173,35 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
   }, [renderFrame]);
 
   const [showLoader, setShowLoader] = useState(true);
-  const isFullyLoaded = loaded >= total && total > 0;
 
-  // Delay hiding loader slightly so the exit animation plays
+  // Reveal the experience as soon as a buffer of opening frames is decoded —
+  // the remaining frames keep streaming in while the user scrolls. Waiting for
+  // all ~480 frames (~21 MB) before showing anything is what made the loader
+  // feel endless. 80 frames covers roughly the first screenful of scrolling.
+  const READY_FRAMES = 80;
+  const readyThreshold = Math.min(total || READY_FRAMES, READY_FRAMES);
+  const isReady = total > 0 && loaded >= readyThreshold;
+
+  // Hide the loader once the opening buffer is ready (with a short beat so the
+  // exit animation can play).
   useEffect(() => {
-    if (isFullyLoaded) {
-      const t = setTimeout(() => setShowLoader(false), 900);
+    if (isReady) {
+      const t = setTimeout(() => setShowLoader(false), 600);
       return () => clearTimeout(t);
     }
-  }, [isFullyLoaded]);
+  }, [isReady]);
 
-  const pct = total > 0 ? Math.round((loaded / total) * 100) : 0;
+  // Safety net: never trap the user behind the loader. If images stall (a frame
+  // that never fires load/error), reveal the page anyway after a hard timeout.
+  useEffect(() => {
+    const safety = setTimeout(() => setShowLoader(false), 8000);
+    return () => clearTimeout(safety);
+  }, []);
+
+  const pct =
+    readyThreshold > 0
+      ? Math.min(100, Math.round((loaded / readyThreshold) * 100))
+      : 0;
 
   return (
     <>
@@ -279,7 +307,7 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
                   />
                 </div>
                 <p className="text-white/25 text-[10px] font-medium tracking-[0.28em] uppercase">
-                  {isFullyLoaded ? "Ready" : `Loading — ${pct}%`}
+                  {isReady ? "Ready" : `Loading — ${pct}%`}
                 </p>
               </motion.div>
             </div>
@@ -289,7 +317,6 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
       <canvas
         ref={canvasRef}
         className="fixed inset-0 w-full h-screen z-0 pointer-events-none"
-        style={{ willChange: "transform" }}
       />
     </>
   );

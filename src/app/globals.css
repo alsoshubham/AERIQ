@@ -18,6 +18,10 @@
     scroll-behavior: smooth;
     /* Prevent elastic over-scroll bounce from disrupting the scroll engine */
     overscroll-behavior: none;
+    /* <html> is the scroll container Framer Motion's useScroll({ target }) measures
+       relative offsets against. A non-static position lets it measure precisely
+       (and silences its dev-only "non-static position" warning). */
+    position: relative;
   }
 
   body {
@@ -50,5 +54,22 @@
   }
   ::-webkit-scrollbar-thumb:hover {
     background: #ffffff28;
+  }
+
+  /* Respect users who ask for less motion: drop smooth-scroll and collapse
+     CSS animations/transitions. (Scroll-driven canvas frames stay, since the
+     user controls them directly by scrolling.) */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }

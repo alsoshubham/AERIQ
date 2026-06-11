@@ -1,12 +1,26 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { ImageSequenceCanvas } from "@/components/scrollytelling/ImageSequenceCanvas";
 import { ScrollytellingSection } from "@/components/scrollytelling/ScrollytellingSection";
 
 export default function ScrollytellingContainer() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // The frame-sequence canvas decodes images 0→N, so a reload that restores the
+  // browser to a mid-page scroll position lands the user in the middle of the
+  // animation before those frames exist. Take over scroll restoration and always
+  // begin at the hero (unless the URL carries a real #anchor deep link) so every
+  // load is deterministic and the opening frames are the ones that load first.
+  useEffect(() => {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   return (
     <>

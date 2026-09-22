@@ -36,7 +36,7 @@ export default function ScrollytellingContainer() {
             align="center"
             headline="Phycosphere"
             subheadline="Biology that goes more"
-            supportingLine={`Designed in India.\nManufactured in India.\nBuilt for the World.`}
+            supportingLine="engineering modular biological infrastructure that transforms urban CO2 and wastewater into clean air, reusable biomass, and measurable climate impact at the speed cities need"
           />
           <ScrollytellingSection
             align="left"

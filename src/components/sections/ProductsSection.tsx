@@ -11,7 +11,7 @@ const topProducts = [
     icon: <Wind className="w-5 h-5" />,
     accent: "#00FF88",
     title: "Air Purification Unit",
-    desc: "Our flagship bioreactor harnesses microalgae to capture CO₂ and release fresh oxygen, replacing 15-25 trees within a 1 m² footprint. Designed for outdoor urban deployment.",
+    desc: "Our flagship bioreactor harnesses microalgae to capture CO₂ and release fresh oxygen.",
     tag: "Flagship",
     wide: true,
   },

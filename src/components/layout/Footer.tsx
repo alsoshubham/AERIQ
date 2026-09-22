@@ -5,7 +5,7 @@ import { Mail, MapPin } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-white/[0.06] border-t border-white/[0.05] py-16 px-6 md:px-12 lg:px-24">
+    <footer className="bg-[#111111] border-t border-white/[0.05] py-16 px-6 md:px-12 lg:px-24">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-1">
@@ -18,7 +18,6 @@ export function Footer() {
           <div>
             <h4 className="text-white/30 font-medium text-xs uppercase tracking-widest mb-5">Product</h4>
             <ul className="space-y-3 text-sm text-white/25">
-              <li className="hover:text-white transition-colors cursor-pointer">Phycosphere Purifier</li>
               <li className="hover:text-white transition-colors cursor-pointer">Technology</li>
               <li className="hover:text-white transition-colors cursor-pointer">Specifications</li>
               <li className="hover:text-white transition-colors cursor-pointer">Case Studies</li>

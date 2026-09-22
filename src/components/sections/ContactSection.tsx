@@ -41,7 +41,7 @@ export function ContactSection() {
           {/* FormSubmit hidden configuration */}
           <input type="hidden" name="_next" value="https://phycosphere.in/thank-you" />
           <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_subject" value="New Enquiry — Phycosphere" />
+          <input type="hidden" name="_subject" value="New Enquiry - Phycosphere" />
           <input type="hidden" name="_captcha" value="false" />
           {/* Honeypot: bots fill this, humans don't — silently filters spam */}
           <input type="text" name="_honey" className="hidden" aria-hidden="true" tabIndex={-1} />
@@ -88,11 +88,11 @@ export function ContactSection() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               type="submit"
-              className="px-8 py-3.5 bg-[#00FF88] text-[#050505] font-semibold rounded-full text-sm tracking-wide hover:bg-[#00FF88]/90 transition-all duration-200 cursor-pointer"
+              className="px-8 py-3.5 bg-[#2A5D55] text-white font-semibold rounded-full text-sm tracking-wide hover:bg-[#2A5D55]/90 transition-all duration-200 cursor-pointer"
             >
               Send Message
             </motion.button>
-            <p className="text-white/20 text-xs mt-4">
+            <p className="text-white text-xs mt-4">
               We respect your privacy. Your information will be kept confidential.
             </p>
           </div>

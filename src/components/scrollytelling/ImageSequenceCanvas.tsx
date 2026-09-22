@@ -307,7 +307,7 @@ export const ImageSequenceCanvas: React.FC<ImageSequenceCanvasProps> = ({
                   />
                 </div>
                 <p className="text-white/25 text-[10px] font-medium tracking-[0.28em] uppercase">
-                  {isReady ? "Ready" : `Loading — ${pct}%`}
+                  {isReady ? "Ready" : `Loading ${pct}%`}
                 </p>
               </motion.div>
             </div>

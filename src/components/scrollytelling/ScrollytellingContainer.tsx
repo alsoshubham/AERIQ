@@ -35,8 +35,8 @@ export default function ScrollytellingContainer() {
           <ScrollytellingSection
             align="center"
             headline="Phycosphere"
-            subheadline="Redefining the future of living."
-            supportingLine="engineering modular biological infrastructure that transforms urban CO2 and wastewater into clean air, reusable biomass, and measurable climate impact at the speed cities need"
+            subheadline="Biology that goes more"
+            supportingLine={`Designed in India.\nManufactured in India.\nBuilt for the World.`}
           />
           <ScrollytellingSection
             align="left"
@@ -48,7 +48,7 @@ export default function ScrollytellingContainer() {
             align="right"
             headline="Nature, accelerated."
             subheadline="Microalgae capture CO₂ and release oxygen."
-            supportingLine="Smart sensors regulate light, flow, and nutrient cycles. Clean air and water — powered by biology."
+            supportingLine="Smart sensors regulate light, flow, and nutrient cycles. Clean air and water, powered by biology."
           />
           <ScrollytellingSection
             align="center"
@@ -59,8 +59,7 @@ export default function ScrollytellingContainer() {
           <ScrollytellingSection
             align="center"
             headline="Engineering the future of nature."
-            subheadline="Phycosphere — where sustainability becomes technology."
-            cta="Explore Phycosphere"
+            subheadline="Phycosphere, where sustainability becomes technology."
           />
         </div>
       </div>

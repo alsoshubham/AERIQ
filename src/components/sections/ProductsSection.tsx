@@ -11,7 +11,7 @@ const topProducts = [
     icon: <Wind className="w-5 h-5" />,
     accent: "#00FF88",
     title: "Air Purification Unit",
-    desc: "Our flagship bioreactor harnesses microalgae to capture CO₂ and release fresh oxygen — replacing 15–25 trees within a 1 m² footprint. Designed for outdoor urban deployment.",
+    desc: "Our flagship bioreactor harnesses microalgae to capture CO₂ and release fresh oxygen, replacing 15-25 trees within a 1 m² footprint. Designed for outdoor urban deployment.",
     tag: "Flagship",
     wide: true,
   },
@@ -37,7 +37,7 @@ const bottomProducts = [
     icon: <Pill className="w-5 h-5" />,
     accent: "#8B5CF6",
     title: "Nutraceuticals",
-    desc: "Pure, high-concentration Omega-3 and antioxidant production within our algae reactor ecosystems — zero synthetic additives.",
+    desc: "Pure, high-concentration Omega-3 and antioxidant production within our algae reactor ecosystems, with zero synthetic additives.",
     tag: "Health",
   },
   {

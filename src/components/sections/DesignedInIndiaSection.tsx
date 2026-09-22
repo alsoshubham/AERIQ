@@ -15,7 +15,7 @@ export function DesignedInIndiaSection() {
       items: [
         "CO₂ absorption with a sustainable closed-loop system",
         "Microalgae convert carbon dioxide into fresh oxygen",
-        "Zero harmful emissions — fully organic process",
+        "Zero harmful emissions, fully organic process",
       ],
     },
     {
@@ -25,7 +25,7 @@ export function DesignedInIndiaSection() {
       items: [
         "Natural, chemical-free air purification",
         "Boosts ambient oxygen levels around the unit",
-        "Silent operation — no noise pollution",
+        "Silent operation, no noise pollution",
       ],
     },
     {
@@ -48,7 +48,7 @@ export function DesignedInIndiaSection() {
             Why Phycosphere
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
-            Designed in India.<br />Made for India.
+            Designed in India.<br />Manufactured in India.<br />Built for the World.
           </h2>
         </motion.div>
 

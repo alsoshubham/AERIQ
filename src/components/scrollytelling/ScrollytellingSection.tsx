@@ -87,7 +87,7 @@ export const ScrollytellingSection: React.FC<ScrollytellingSectionProps> = ({
 
           {supportingLine && (
             <p
-              className="text-base md:text-lg text-white/55 max-w-xl leading-relaxed"
+              className="text-base md:text-lg text-white/55 max-w-xl leading-relaxed whitespace-pre-line"
               style={{ textShadow: "0 2px 16px rgba(0,0,0,0.95)" }}
             >
               {supportingLine}

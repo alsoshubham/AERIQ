@@ -95,7 +95,7 @@ export function ApplicationsSection() {
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
             Ideal Applications
           </h2>
-          <p className="text-white/40 text-lg max-w-xl">
+          <p className="text-white/40 text-xl leading-relaxed max-w-5xl">
             Purpose-built for high-impact environments across cities and industries.
           </p>
         </motion.div>

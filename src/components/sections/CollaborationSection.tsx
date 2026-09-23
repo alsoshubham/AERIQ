@@ -41,8 +41,8 @@ export function CollaborationSection() {
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
             Partner With Phycosphere
           </h2>
-          <p className="text-white/40 text-lg max-w-xl">
-            Multiple pathways to bring clean air technology to your organization.
+          <p className="text-white/40 text-xl leading-relaxed max-w-5xl">
+            Turn resource challenges into sustainable, measurable impact.
           </p>
         </motion.div>
 

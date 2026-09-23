@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Leaf, Heart, Settings, Check } from "lucide-react";
+import { Leaf, Heart, Settings, Sparkles, Check } from "lucide-react";
 import { fadeUp } from "@/lib/animations";
 import { Section } from "@/lib/SectionWrapper";
 
@@ -13,19 +13,19 @@ export function DesignedInIndiaSection() {
       title: "Environmental",
       color: "#00FF88",
       items: [
-        "CO₂ absorption with a sustainable closed-loop system",
-        "Microalgae convert carbon dioxide into fresh oxygen",
-        "Zero harmful emissions, fully organic process",
+        "Resource recovery",
+        "CO₂ utilisation",
+        "Nature-based processes",
       ],
     },
     {
-      icon: <Heart className="w-5 h-5" />,
-      title: "Health",
-      color: "#00D6FF",
+      icon: <Sparkles className="w-5 h-5" />,
+      title: "Value Addition",
+      color: "#FFB800",
       items: [
-        "Natural, chemical-free air purification",
-        "Boosts ambient oxygen levels around the unit",
-        "Silent operation, no noise pollution",
+        "Waste → resources",
+        "Biomass → bioproducts",
+        "Multiple value streams",
       ],
     },
     {
@@ -33,15 +33,25 @@ export function DesignedInIndiaSection() {
       title: "Operational",
       color: "#8B5CF6",
       items: [
-        "Low maintenance with automated algae care",
-        "Real-time environmental monitoring via IoT",
-        "Solar-powered for zero electricity costs",
+        "Modular & scalable",
+        "IoT-enabled monitoring",
+        "Smart process control",
+      ],
+    },
+    {
+      icon: <Heart className="w-5 h-5" />,
+      title: "Health",
+      color: "#00D6FF",
+      items: [
+        "Air & water improvement",
+        "Photosynthetic oxygen generation",
+        "Low-impact operation",
       ],
     },
   ];
 
   return (
-    <Section className="bg-[#050505]" id="technology">
+    <Section className="bg-[#050505]" id="why-phycosphere">
       <div className="max-w-6xl mx-auto">
         <motion.div variants={fadeUp} className="mb-16">
           <p className="text-[#00FF88] text-sm font-medium tracking-[0.2em] uppercase mb-4">
@@ -52,7 +62,7 @@ export function DesignedInIndiaSection() {
           </h2>
         </motion.div>
 
-        <motion.div variants={fadeUp} className="grid md:grid-cols-3 gap-px bg-white/[0.06] rounded-2xl overflow-hidden border border-white/[0.06]">
+        <motion.div variants={fadeUp} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.06] rounded-2xl overflow-hidden border border-white/[0.06]">
           {benefits.map((b, i) => (
             <motion.div
               key={i}

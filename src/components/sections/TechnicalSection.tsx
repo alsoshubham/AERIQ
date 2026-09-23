@@ -2,50 +2,50 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Shield, Monitor, Sun, Cpu } from "lucide-react";
+import { Layers, Cpu, Sliders, Recycle } from "lucide-react";
 import { fadeUp } from "@/lib/animations";
 import { Section } from "@/lib/SectionWrapper";
 
 export function TechnicalSection() {
   const features = [
     {
-      icon: <Shield className="w-6 h-6" />,
-      title: "Forged in stainless steel",
-      desc: "Precision-engineered, weather-resistant body built to last decades. Industrial-grade materials meet elegant design for any environment.",
+      icon: <Layers className="w-6 h-6" />,
+      title: "01 — Advanced Reactor Systems",
+      desc: "State-of-the-art modular photobioreactor architecture designed for efficient cultivation, resource recovery and scalable deployment.",
       accent: "#00FF88",
     },
     {
-      icon: <Monitor className="w-6 h-6" />,
-      title: "Illuminate every detail",
-      desc: "Advanced monitoring system with real-time data visualization. Track AQI, algae health, and environmental metrics from an integrated smart display.",
+      icon: <Cpu className="w-6 h-6" />,
+      title: "02 — Smart Technology",
+      desc: "IoT-enabled monitoring, automation and data-driven process control - with AI-ready architecture for optimisation and predictive operation.",
       accent: "#00D6FF",
     },
     {
-      icon: <Sun className="w-6 h-6" />,
-      title: "Built to thrive anywhere",
-      desc: "Solar-powered energy system for zero-electricity operation. Sustainable, autonomous, and designed for India's diverse climate conditions.",
-      accent: "#FFB800",
+      icon: <Sliders className="w-6 h-6" />,
+      title: "03 — Tailored by Design",
+      desc: "Client-specific systems engineered around feedstock, process conditions, site constraints, operating goals and scale.",
+      accent: "#8B5CF6",
     },
     {
-      icon: <Cpu className="w-6 h-6" />,
-      title: "Smart AQI Display",
-      desc: "Real-time air quality index, weather conditions, and algae health tracking on a responsive, always-on screen.",
-      accent: "#8B5CF6",
+      icon: <Recycle className="w-6 h-6" />,
+      title: "04 — Biomass to Bioproducts",
+      desc: "Integrated biomass recovery and downstream pathways for biofertilizers, biopolymers, biofibres, biofuels and other high-value products.",
+      accent: "#FFB800",
     },
   ];
 
   return (
-    <Section className="bg-[#080808]">
+    <Section className="bg-[#080808]" id="technology">
       <div className="max-w-6xl mx-auto">
         <motion.div variants={fadeUp} className="mb-16">
           <p className="text-[#00D6FF] text-sm font-medium tracking-[0.2em] uppercase mb-4">
             Engineering
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
-            Built different.<br />Built to last.
+            Engineered for performance.<br />Built for scale.
           </h2>
-          <p className="text-white/40 text-lg max-w-xl">
-            Every component is purpose-designed for maximum performance.
+          <p className="text-white/40 text-xl leading-relaxed max-w-5xl">
+            From reactor architecture to biomass valorisation, every layer is designed around the application.
           </p>
         </motion.div>
 

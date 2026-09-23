@@ -35,31 +35,34 @@ export default function ScrollytellingContainer() {
           <ScrollytellingSection
             align="center"
             headline="Phycosphere"
-            subheadline="Biology that goes more"
-            supportingLine="engineering modular biological infrastructure that transforms urban CO2 and wastewater into clean air, reusable biomass, and measurable climate impact at the speed cities need"
+            subheadline="Nature, Engineered for Value."
+            supportingLine="Turning waste streams and carbon into resources, products and measurable environmental value."
           />
           <ScrollytellingSection
             align="left"
-            headline="Precision-engineered for life."
-            subheadline="Industrial-grade stainless steel meets living microalgae."
-            supportingLine="Every layer designed for efficiency, regeneration, and balance."
+            headline="From waste streams to value streams."
+            subheadline="Nature-based technologies for resource recovery, waste valorisation and carbon utilisation."
+            supportingLine="Built for industry, infrastructure and cities."
           />
           <ScrollytellingSection
             align="right"
-            headline="Nature, accelerated."
-            subheadline="Microalgae capture CO₂ and release oxygen."
-            supportingLine="Smart sensors regulate light, flow, and nutrient cycles. Clean air and water, powered by biology."
+            headline="Smarter systems. Greater resource value."
+            subheadline="Modular, scalable solutions tailored to your waste streams, infrastructure and resource-recovery goals."
+            supportingLine="Smart monitoring, IoT integration and AI-enabled optimisation connect treatment, recovery and valorisation."
           />
           <ScrollytellingSection
             align="center"
             headline="Circular by design."
-            subheadline="From water treatment to biofertilizers, Phycosphere transforms waste into value."
-            supportingLine="Each system contributes to a regenerative economy."
+            subheadline="Waste → Recovery → Transformation → Value"
+            supportingLine={`From recovered nutrients, carbon and biomass to biofertilizers, biopolymers, biofibres, biofuels and other high-value bioproducts.
+
+Closing loops. Creating value. Enabling regenerative economies.`}
           />
           <ScrollytellingSection
             align="center"
-            headline="Engineering the future of nature."
-            subheadline="Phycosphere, where sustainability becomes technology."
+            headline="A world where waste becomes infrastructure."
+            subheadline="PhycoSphere is building modular, intelligent resource-recovery systems that connect nature, technology and industry."
+            supportingLine="Recover more. Create more value. Waste less."
           />
         </div>
       </div>

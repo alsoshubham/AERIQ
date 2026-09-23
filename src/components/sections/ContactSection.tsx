@@ -15,10 +15,10 @@ export function ContactSection() {
         <motion.div variants={fadeUp} className="mb-12">
           <p className="text-[#00FF88] text-sm font-medium tracking-[0.2em] uppercase mb-4">Get in Touch</p>
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
-            Ready to breathe better?
+            Have a resource to recover?
           </h2>
-          <p className="text-white/40 text-lg">
-            Reach out to explore pilot programs, partnerships, or learn more.
+          <p className="text-white/40 text-xl leading-relaxed">
+            Tell us about your challenge. We&rsquo;ll explore the technology, pathway and deployment model that fits.
           </p>
         </motion.div>
 
@@ -50,14 +50,14 @@ export function ContactSection() {
             <input
               type="text"
               name="full_name"
-              placeholder="Full Name"
+              placeholder="Name"
               className={inputClasses}
               required
             />
             <input
               type="email"
               name="email"
-              placeholder="Email Address"
+              placeholder="Work Email"
               className={inputClasses}
               required
             />
@@ -66,7 +66,7 @@ export function ContactSection() {
             <input
               type="text"
               name="organization"
-              placeholder="Organization"
+              placeholder="Organisation"
               className={inputClasses}
             />
             <input
@@ -79,7 +79,7 @@ export function ContactSection() {
           <textarea
             rows={5}
             name="message"
-            placeholder="Your Message"
+            placeholder="Tell us about your project or challenge"
             className={`${inputClasses} resize-none`}
             required
           />
@@ -90,10 +90,10 @@ export function ContactSection() {
               type="submit"
               className="px-8 py-3.5 bg-[#2A5D55] text-white font-semibold rounded-full text-sm tracking-wide hover:bg-[#2A5D55]/90 transition-all duration-200 cursor-pointer"
             >
-              Send Message
+              Send Enquiry
             </motion.button>
-            <p className="text-white text-xs mt-4">
-              We respect your privacy. Your information will be kept confidential.
+            <p className="text-white/40 text-xs mt-4">
+              Your information is kept confidential and used only to respond to your enquiry.
             </p>
           </div>
         </motion.form>

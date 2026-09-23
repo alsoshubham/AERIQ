@@ -2,16 +2,16 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Droplets, Leaf, Beaker, Pill, Recycle, Wind } from "lucide-react";
+import { ArrowRight, Droplets, Leaf, Beaker, Recycle, Zap, Layers } from "lucide-react";
 import { fadeUp } from "@/lib/animations";
 import { Section } from "@/lib/SectionWrapper";
 
 const topProducts = [
   {
-    icon: <Wind className="w-5 h-5" />,
+    icon: <Recycle className="w-5 h-5" />,
     accent: "#00FF88",
-    title: "Air Purification Unit",
-    desc: "Our flagship bioreactor harnesses microalgae to capture CO₂ and release fresh oxygen.",
+    title: "Waste to Wealth",
+    desc: "Transforming waste streams into recoverable resources, biomass and new value.",
     tag: "Flagship",
     wide: true,
   },
@@ -19,39 +19,39 @@ const topProducts = [
     icon: <Droplets className="w-5 h-5" />,
     accent: "#00D6FF",
     title: "Water Restoration",
-    desc: "Large-scale bioremediation utilizing microalgae to extract heavy metals and phosphates from industrial runoff and contaminated water bodies.",
-    tag: "Industrial",
+    desc: "In-situ nature-based algal systems for nutrient recovery, water quality improvement and reuse.",
+    tag: "Social / Environmental",
     wide: false,
   },
 ];
 
 const bottomProducts = [
   {
-    icon: <Leaf className="w-5 h-5" />,
-    accent: "#00FF88",
-    title: "Agriculture",
-    desc: "Biostimulants and biofertilizers that restore soil health and increase crop resilience through natural nutrient fixing.",
-    tag: "Agriculture",
+    icon: <Zap className="w-5 h-5" />,
+    accent: "#FFB800",
+    title: "Energy & Green Fuels",
+    desc: "Converting biomass into renewable fuels including biodiesel, biogas and bioethanol.",
+    tag: "Environmental",
   },
   {
-    icon: <Pill className="w-5 h-5" />,
-    accent: "#8B5CF6",
-    title: "Nutraceuticals",
-    desc: "Pure, high-concentration Omega-3 and antioxidant production within our algae reactor ecosystems, with zero synthetic additives.",
-    tag: "Health",
+    icon: <Leaf className="w-5 h-5" />,
+    accent: "#10B981",
+    title: "Biobased Soil Amendments",
+    desc: "Biobased inputs that improve soil health, nutrient cycling and crop resilience for climate-resilient agriculture.",
+    tag: "Agricultural",
   },
   {
     icon: <Beaker className="w-5 h-5" />,
-    accent: "#00D6FF",
-    title: "Textile & Dyeing",
-    desc: "Revolutionising high-performance fashion through carbon-negative indigo pigments and bio-based fibres from colonial algal strains.",
-    tag: "Industry",
+    accent: "#8B5CF6",
+    title: "Value-added Bio-Molecules",
+    desc: "Recovering high-value molecules from biomass for nutraceutical and industrial applications.",
+    tag: "Industrial",
   },
   {
-    icon: <Recycle className="w-5 h-5" />,
-    accent: "#FFB800",
-    title: "Bioplastics",
-    desc: "Transforming raw biomass into compostable polymers that match the durability of traditional petroleum plastics.",
+    icon: <Layers className="w-5 h-5" />,
+    accent: "#F43F5E",
+    title: "Bioplastics and Biocomposites",
+    desc: "Transforming recovered biomass into bio-based polymers and sustainable materials.",
     tag: "Materials",
   },
 ];
@@ -86,10 +86,10 @@ export function ProductsSection() {
             Our Products
           </p>
           <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
-            Solutions for every<br />scale of industry.
+            Solutions across resource-recovery<br />value chain.
           </h2>
-          <p className="text-white/40 text-lg max-w-xl">
-            From regenerative agriculture to high-performance bioplastics, Phycosphere's microalgae cultivation systems provide the biological precision required for the next industrial revolution.
+          <p className="text-white/40 text-xl leading-relaxed max-w-5xl">
+            Phycosphere transforms waste streams to recovered resources, energy and biofuels, agricultural soil stimulants and high-value bioproducts.
           </p>
         </motion.div>
 

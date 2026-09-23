@@ -11,7 +11,7 @@ export function Footer() {
           <div className="md:col-span-1">
             <span className="text-xl font-bold text-white tracking-tighter">PHYCOSPHERE</span>
             <p className="text-white/25 text-sm mt-4 leading-relaxed">
-              Turning waste streams and carbon into resources, products and measurable environmental value.
+              Nature, Engineered for Value.
             </p>
           </div>
 
